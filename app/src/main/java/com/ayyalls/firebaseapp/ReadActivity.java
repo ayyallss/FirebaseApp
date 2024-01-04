@@ -18,7 +18,7 @@ import com.ayyalls.firebaseapp.model.Barang;
 import java.util.ArrayList;
 
 public class ReadActivity extends AppCompatActivity implements
-        AdapterBarangRecyclerView.FirebaseDataListener{
+        AdapterBarangRecyclerView.FirebaseDataListener {
     /**
      * Mendefinisikan variable yang akan dipakai
      */
@@ -27,6 +27,7 @@ public class ReadActivity extends AppCompatActivity implements
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Barang> daftarBarang;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +76,7 @@ public class ReadActivity extends AppCompatActivity implements
                         ReadActivity.this);
                 rvView.setAdapter(adapter);
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 /**
@@ -82,13 +84,15 @@ public class ReadActivity extends AppCompatActivity implements
  * pengambilan data gagal dan memprint error nya
  * ke LogCat
  */
-                System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
+                System.out.println(databaseError.getDetails() + " " + databaseError.getMessage());
             }
         });
     }
-    public static Intent getActIntent(Activity activity){
+
+    public static Intent getActIntent(Activity activity) {
         return new Intent(activity, ReadActivity.class);
     }
+// bewok
     @Override
     public void onDeleteData(Barang barang, final int position) {
 
@@ -99,12 +103,12 @@ public class ReadActivity extends AppCompatActivity implements
  * berdasarkan key barang.
  * Jika sukses akan memunculkan Toast
  */
-        if(database!=null){
+        if (database != null) {
             database.child("barang").child(barang.getKey()).removeValue().addOnSuccessListener
                     (new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(ReadActivity.this,"success delete",
+                            Toast.makeText(ReadActivity.this, "success delete",
                                     Toast.LENGTH_LONG).show();
                         }
                     });
